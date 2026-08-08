@@ -205,3 +205,11 @@ go build -o bin/worker ./cmd/worker
 - ✅ 多二进制组合（API + Worker + 迁移）
 - ❌ 团队协作项目
 - ❌ 公共 Library/SDK（需独立设计 public package API）
+
+### D. 结构演化
+
+当项目复杂度超出最小结构时，参考 `patterns/layered-architecture.md` 选择合适的分层架构模式：
+
+- CLI 工具变复杂 → CLI → Task → Function
+- 事件驱动服务 → Endpoint → Handler → Adapter
+- 混合 daemon → Scheduler + Endpoint → Handler → Adapter

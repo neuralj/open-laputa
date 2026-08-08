@@ -7,7 +7,7 @@
 ```
 architecture/
 ├── principles/    # 架构原则 — 依赖方向、关注点分离、领域边界
-├── patterns/      # 设计模式 — DDD、六边形、整洁架构、CQRS
+├── patterns/      # 设计模式 — 分层架构、DDD、六边形、CQRS
 ├── constraints/   # 约束条件 — 禁止的依赖、不变量
 ├── templates/     # 架构模板 — 按复杂度分级（simple/standard/enterprise）
 ├── skeletons/     # 可运行的骨架项目 — 按语言分
@@ -16,6 +16,13 @@ architecture/
 │   └── typescript/
 └── examples/      # 示例代码
 ```
+
+## Skeleton 与 Pattern 的关系
+
+- **Skeleton**：新项目从哪里开始？（最小起点，6-8 个文件）
+- **Pattern**：复杂度出现以后怎么解决？（成熟的架构方案）
+
+当项目复杂度超出 skeleton 最小结构时，参考 `patterns/layered-architecture.md` 选择合适的分层架构模式演化。
 
 ## 核心理念
 
