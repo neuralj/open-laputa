@@ -1,6 +1,6 @@
 # Logos
 
-> A personal knowledge and practice system for turning understanding into models, methods, and executable systems.
+> 面向 Agent 的个人认知基础设施。将认知沉淀为可组合、可执行的认知资产。
 
 ## 定义
 
@@ -15,7 +15,7 @@ Logos 是一套将认知沉淀为模型、方法，并最终转化为可执行�
        │           │           │
     Computing    Finance    General
        │           │           │
- Architecture   Trading    Thinking
+   Architecture   Trading    Thinking
        │           │           │
        └───────────┼───────────┘
                    │
@@ -44,7 +44,7 @@ Logos 是一套将认知沉淀为模型、方法，并最终转化为可执行�
 |------|------|------|
 | **Computing** | `knowledge/computing/` | 架构、编程、数据库、分布式、AI |
 | **Finance** | `knowledge/finance/` | 经济学、会计、估值、市场理论 |
-| **General** | `knowledge/general/` | 思维、决策、研究、方法论 |
+| **General** | `methods/` | 思维、决策、研究、方法论 |
 
 ## 边界
 
@@ -52,28 +52,14 @@ Logos 是一套将认知沉淀为模型、方法，并最终转化为可执行�
 - 不是资料收集箱，是认知操作系统
 - Computing/Finance/General 是三个独立领域，共享同一套 Ontology
 
-## 与其他系统的关系
+## 认知循环
 
 ```
-                    Logos
-                      │
-          ┌───────────┼────────────┐
-          │           │            │
-      Knowledge     Models       Methods
-          │           │            │
-          └───────────┼────────────┘
-                      │
-                  Practice
-                      │
-              ┌───────┴────────┐
-              │                │
-         neural-base       other projects
-              │
-        Data / Backtest
-        Indicators
-        Models
-        Experiments
+Knowledge → Models → Methods → Practices → Feedback → Knowledge
 ```
 
-- **Logos** 是认知层 — 定义"是什么"和"为什么"
-- **neural-base** 是实验层 — 负责"计算"和"验证"
+- **Knowledge** 描述世界是什么
+- **Models** 压缩和解释世界
+- **Methods** 定义如何推理
+- **Practices** 指导如何行动
+- **Feedback** 验证和修正认知

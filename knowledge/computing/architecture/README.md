@@ -9,10 +9,11 @@ architecture/
 ├── principles/    # 架构原则 — 依赖方向、关注点分离、领域边界
 ├── patterns/      # 设计模式 — DDD、六边形、整洁架构、CQRS
 ├── constraints/   # 约束条件 — 禁止的依赖、不变量
-├── templates/     # 项目模板
-│   ├── simple/    # 最小可行结构
-│   ├── standard/  # 标准 DDD 分层
-│   └── enterprise/# 企业级多模块
+├── templates/     # 架构模板 — 按复杂度分级（simple/standard/enterprise）
+├── skeletons/     # 可运行的骨架项目 — 按语言分
+│   ├── golang/
+│   ├── python/
+│   └── typescript/
 └── examples/      # 示例代码
 ```
 

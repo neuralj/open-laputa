@@ -1,70 +1,60 @@
-# Logos Agent Guide
+# Logos
+
+面向 Agent 的个人认知基础设施。将认知沉淀为可组合、可执行的认知资产。
+
+## 认知资产类型
+
+| 层 | 核心问题 | 定义 | 目录 |
+|---|---|---|---|
+| Knowledge | What is true? | 世界的事实、规则、原理 | `knowledge/` |
+| Models | How do we represent? | 对现实的压缩与解释 | `models/` |
+| Methods | How do we reason? | 可执行的推理过程 | `methods/` |
+| Practices | How do we act? | 面向行动的操作规程 | `practices/` |
+
+## 目录结构
+
+```
+knowledge/
+├── computing/architecture/    # principles/ patterns/ constraints/ templates/ skeletons/ examples/
+├── finance/                   # economics/ accounting/ valuation/ markets/
+└── (general/ 已迁移至 methods/)
+
+models/                        # 按领域：computing/ finance/ general/
+methods/                       # 按推理类型：reasoning/ research/ analysis/ decision/
+practices/                     # 按领域：computing/ finance/ general/
+schemas/                       # 认知产物元数据定义
+```
 
 ## 导航逻辑
 
 ```
-用户需求 → 定位领域 → 定位层级 → 获取知识/方法/模板
+用户需求 → 定位资产类型 → 定位领域 → 获取认知产物
 ```
 
-## 层级含义
+## 边界规则
 
-| 层级 | 问题 | 示例 |
-|------|------|------|
-| **Knowledge** | "这是什么？" | 涨停制度、DDD 分层 |
-| **Models** | "如何理解？" | 涨停 = 价格发现约束 |
-| **Methods** | "如何验证？" | 统计涨停后 N 日收益分布 |
-| **Practices** | "如何行动？" | 构建涨停策略 |
+1. **Knowledge** 描述外部世界，不含主观解释
+2. **Models** 是对现实的压缩，必须明确假设和边界
+3. **Methods** 必须可执行，有明确输入输出
+4. **Practices** 必须经过验证，有验收标准
 
-## 领域导航
+## 不变量
 
-### Computing
-```
-knowledge/computing/architecture/
-├── principles/    # 架构原则
-├── patterns/      # 设计模式
-├── constraints/   # 约束条件
-├── templates/     # 项目模板
-└── examples/      # 示例代码
-```
+- 每个文件以 `# 标题` 开头，紧跟一句话定义
+- 引用使用路径格式：`knowledge/computing/architecture/patterns/ddd.md`
+- 文件命名：小写英文 + 短横线分隔
+- 不创建空文件，没有内容就不建文件
+- 只保存经过抽象、验证、结构化的认知
 
-### Finance
-```
-knowledge/finance/
-├── economics/     # 经济学
-├── accounting/    # 会计
-├── valuation/     # 估值
-└── markets/       # 市场理论
-```
+## 新增认知产物
 
-### General
-```
-knowledge/general/
-├── thinking/      # 思维模型
-├── decision/      # 决策框架
-├── research/      # 研究方法
-└── methodology/   # 方法论
-```
+1. 确定资产类型（Knowledge / Model / Method / Practice）
+2. 查看 `schemas/` 对应元数据定义
+3. 按元数据格式创建文件
+4. 建立跨层引用（如 Practice 引用 Knowledge + Method）
 
-## 任务路由
+## 禁止事项
 
-### "帮我创建一个新的 TypeScript 服务"
-```
-Computing → Architecture → templates/standard/
-```
-
-### "帮我分析这个股票策略"
-```
-Trading → Models → Research Methods → neural-base
-```
-
-### "帮我理解这个概念"
-```
-定位领域 → Knowledge → 返回定义和原理
-```
-
-## 输出规范
-
-当基于 Logos 生成代码或分析时：
-1. 引用具体知识来源（路径）
-2. 说明使用的模型/方法
-3. 给出可执行的下一步
+- 禁止将 Knowledge 与 Model 混放
+- 禁止创建无元数据的认知产物
+- 禁止在 AGENTS.md 中堆积知识内容
