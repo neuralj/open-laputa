@@ -82,12 +82,9 @@ dist/
 ```json
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
     "moduleResolution": "bundler",
     "strict": true,
-    "noEmit": true,
-    "skipLibCheck": true
+    "noEmit": true
   },
   "include": ["src"]
 }
@@ -140,6 +137,8 @@ Minimal TypeScript application powered by Bun.
 bun install
 bun test
 ```
+
+> **注意**：`bun install` 会自动生成 `bun.lock` 文件，该文件应提交到 Git 仓库，用于锁定依赖版本。
 
 ## 核心命令
 
