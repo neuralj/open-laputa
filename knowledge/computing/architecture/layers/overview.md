@@ -21,17 +21,27 @@ subdomain: architecture
 
 | 变体 | 适用场景 | 驱动方式 |
 |------|----------|----------|
-| [CLI → Task → Function](cli-task-function.md) | CLI 工具、多命令 | 人类输入 |
-| [Endpoint → Handler → Adapter](endpoint-handler-adapter.md) | 事件驱动服务 | 外部事件 |
-| [Scheduler + Endpoint → Handler → Adapter](scheduler-endpoint-handler-adapter.md) | 混合 daemon | 定时 + 事件 |
+| [CLI → Task → Units](cli-task-units.md) | CLI 工具、多命令 | 人类输入 |
+| [Endpoint → Handler → Adapters](endpoint-handler-adapter.md) | 事件驱动服务 | 外部事件 |
+| [Scheduler + Endpoint → Handler → Adapters](scheduler-endpoint-handler-adapter.md) | 混合 daemon | 定时 + 事件 |
+
+## 统一性
+
+| 应用类型 | 分层结构 | 能力层目录 |
+|----------|----------|------------|
+| CLI 命令行工具 | CLI → Task → Units | units/ |
+| Web 同步服务 | Endpoint → Handler → Adapters | adapters/ |
+| 后台常驻服务 | Scheduler + Endpoint → Handler → Adapters | adapters/ |
+
+**adapters/ 是 units/ 在 HTTP/Daemon 场景下的具体化**，表达"外部系统适配器"的语义。
 
 ## 选择指南
 
 ```
 项目类型？
-├── 人类触发的 CLI 工具 → CLI → Task → Function
-├── 外部事件驱动的服务 → Endpoint → Handler → Adapter
-└── 定时 + 事件混合驱动 → Scheduler + Endpoint → Handler → Adapter
+├── 人类触发的 CLI 工具 → CLI → Task → Units
+├── 外部事件驱动的服务 → Endpoint → Handler → Adapters
+└── 定时 + 事件混合驱动 → Scheduler + Endpoint → Handler → Adapters
 ```
 
 ## 与 Skeleton 的关系

@@ -38,19 +38,58 @@ adapters/   # 执行层（共享）：外部系统交互
 - **共享 Adapter**：Handler 调用 Adapter 执行外部操作
 - Handler 不区分事件来源（Scheduler 或 Endpoint），只关心业务逻辑
 
+## 目录组织
+
+> **adapters/ 是 Unit 的集合**，内部组织方式由项目规模决定，不强制统一。
+
+### 方案 A：扁平结构（小型项目）
+
+```
+scheduler/
+endpoints/
+handlers/
+adapters/
+  ├── postgres.go
+  ├── redis.go
+  └── http_client.go
+```
+
+### 方案 B：按职责分组（中型项目）
+
+```
+scheduler/
+endpoints/
+handlers/
+adapters/
+  ├── database/
+  ├── messaging/
+  └── external/
+```
+
+### 方案 C：按业务域分组（大型项目）
+
+```
+scheduler/
+endpoints/
+handlers/
+adapters/
+  ├── user/
+  ├── order/
+  └── notification/
+```
+
 ## 铁律清单
 
-1. 项目严格使用 `scheduler/`、`endpoints/`、`handlers/`、`adapters/` 作为核心骨架目录
-2. 调用链严格遵循 Scheduler/Endpoint → Handler → Adapter，无跨层调用
-3. Scheduler 只触发定时任务，Endpoint 只接收和脱壳事件
-4. Handler 不区分事件来源（Scheduler 或 Endpoint），只关心业务逻辑
-5. Endpoint 实现异步非阻塞响应
-6. Handler 包含单次任务异常隔离舱
-7. Adapter 封装外部交互的所有超时和重试逻辑
-8. 不存在全局可变状态
-9. 不存在硬编码的密钥或网络地址
-10. Handler 不直接执行 I/O，Adapter 不感知业务流程
-11. Logger 统一：入口创建，下层通过参数获取
+1. 调用链严格遵循 Scheduler/Endpoint → Handler → Adapter，无跨层调用
+2. Scheduler 只触发定时任务，Endpoint 只接收和脱壳事件
+3. Handler 不区分事件来源（Scheduler 或 Endpoint），只关心业务逻辑
+4. Endpoint 实现异步非阻塞响应
+5. Handler 包含单次任务异常隔离舱
+6. Adapter 封装外部交互的所有超时和重试逻辑
+7. 不存在全局可变状态
+8. 不存在硬编码的密钥或网络地址
+9. Handler 不直接执行 I/O，Adapter 不感知业务流程
+10. Logger 统一：入口创建，下层通过参数获取
 
 ## 新增功能时的操作指引
 
