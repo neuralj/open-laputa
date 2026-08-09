@@ -1,0 +1,27 @@
+# UV & Virtual Env
+.venv/
+
+# Python Bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Env Files
+.env
+.env.local
+
+# Test Artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build & Distribution
+dist/
+build/
+*.egg-info/
+
+# IDE Cache
+.vscode/
+.idea/
+.DS_Store

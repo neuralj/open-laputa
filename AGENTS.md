@@ -15,7 +15,7 @@
 
 ```
 knowledge/
-├── computing/architecture/    # principles/ patterns/ constraints/ templates/ skeletons/ examples/
+├── computing/architecture/    # philosophy.md skeletons/ layers/
 ├── finance/                   # economics/ accounting/ valuation/ markets/
 └── (general/ 已迁移至 methods/)
 

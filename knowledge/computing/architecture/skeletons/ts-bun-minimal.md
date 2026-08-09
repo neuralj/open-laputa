@@ -155,7 +155,7 @@ bun test
 2. 形成明确模块边界后，再创建对应子目录
 3. 入口拆分、配置抽离、分层设计等操作，均按需进行，不提前预设
 
-当项目复杂度进一步增加时，参考 `patterns/layered-architecture.md` 选择合适的分层架构模式：
+当项目复杂度进一步增加时，参考 `layers/overview.md` 选择合适的分层架构模式：
 
 - CLI 工具变复杂 → CLI → Task → Function
 - 事件驱动服务 → Endpoint → Handler → Adapter

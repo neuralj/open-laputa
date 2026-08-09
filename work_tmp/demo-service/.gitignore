@@ -1,0 +1,5 @@
+bin/
+*.exe *.so *.dylib *.dll
+*.test coverage.out
+.env .env.local
+.vscode/ .idea/ .DS_Store

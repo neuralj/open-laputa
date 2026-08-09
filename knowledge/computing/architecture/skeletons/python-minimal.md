@@ -239,7 +239,7 @@ uv tool install -e .
 
 ## 结构演化
 
-当项目复杂度超出最小结构时，参考 `patterns/layered-architecture.md` 选择合适的分层架构模式：
+当项目复杂度超出最小结构时，参考 `layers/overview.md` 选择合适的分层架构模式：
 
 - CLI 工具变复杂 → CLI → Task → Function
 - 事件驱动服务 → Endpoint → Handler → Adapter

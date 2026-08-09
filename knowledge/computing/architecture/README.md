@@ -6,72 +6,56 @@
 
 ```
 architecture/
-├── principles/    # 架构原则 — 依赖方向、关注点分离、领域边界
-├── patterns/      # 设计模式 — 分层架构、DDD、六边形、CQRS
-├── constraints/   # 约束条件 — 禁止的依赖、不变量
-├── templates/     # 架构模板 — 按复杂度分级（simple/standard/enterprise）
-├── skeletons/     # 可运行的骨架项目 — 按语言分
-│   ├── golang/
-│   ├── python/
-│   └── typescript/
-│       ├── package.md          # 纯后端
-│       └── svelte-fullstack.md # 全栈（Bun + Svelte）
-└── examples/      # 示例代码
+├── philosophy.md    # 不可变原则 — 为什么这样做
+├── skeletons/       # 项目从哪里开始 — 最小起点模板
+│   ├── golang-cmd-internal.md
+│   ├── python-minimal.md
+│   ├── ts-bun-minimal.md
+│   └── ts-bun-svelte-fullstack.md
+└── layers/          # 复杂度出现后怎么长 — 分层架构模式
+    ├── overview.md
+    ├── cli-task-function.md
+    ├── endpoint-handler-adapter.md
+    └── scheduler-endpoint-handler-adapter.md
 ```
 
-## Skeleton 与 Pattern 的关系
+## 认知模型
 
+```
+            Philosophy
+                │
+      ┌─────────┴─────────┐
+      ↓                   ↓
+  Skeleton              Layers
+      │                   │
+   Start here          Grow here
+      │                   │
+      └─────────┬─────────┘
+                ↓
+          Actual System
+```
+
+- **Philosophy**：不可变的架构原则
 - **Skeleton**：新项目从哪里开始？（最小起点，6-8 个文件）
-- **Pattern**：复杂度出现以后怎么解决？（成熟的架构方案）
-
-当项目复杂度超出 skeleton 最小结构时，参考 `patterns/layered-architecture.md` 选择合适的分层架构模式演化。
-
-## 核心理念
-
-架构不是"代码组织"，而是**依赖方向的控制**。
-
-```
-         ┌─────────────┐
-         │  Interface   │  ← 用户交互
-         └──────┬──────┘
-                │
-         ┌──────▼──────┐
-         │ Application  │  ← 用例编排
-         └──────┬──────┘
-                │
-         ┌──────▼──────┐
-         │    Domain    │  ← 业务规则（核心）
-         └──────┬──────┘
-                │
-         ┌──────▼──────┐
-         │Infrastructure│  ← 技术实现
-         └─────────────┘
-```
-
-**依赖方向：从上到下，Domain 不依赖任何层。**
-
-## 技术栈
-
-- **Runtime**: Bun
-- **Language**: TypeScript
-- **Pattern**: DDD (Domain-Driven Design)
-- **Structure**: Interface → Application → Domain → Infrastructure
+- **Layers**：复杂度出现以后怎么组织？（分层架构模式）
 
 ## 使用方式
 
 ### 创建新项目
 
-```
-1. 选择模板级别（simple/standard/enterprise）
-2. 复制 templates/{level}/ 到目标目录
-3. 根据 principles/ 调整依赖方向
-4. 参考 patterns/ 实现具体模式
-```
+1. 选择 skeleton（按语言和技术栈）
+2. 复制 skeleton 到目标目录
+3. 开始写代码
+
+### 复杂度增长
+
+当项目复杂度超出 skeleton 最小结构时：
+
+1. 参考 `layers/overview.md` 选择合适的分层架构
+2. 按对应 layer 的规范扩展目录结构
 
 ### 审查现有项目
 
-```
-1. 检查 constraints/ 中的禁止依赖
-2. 验证 Domain 层是否纯净
-3. 确认依赖方向是否正确
-```
+1. 检查 `philosophy.md` 中的原则是否被遵守
+2. 验证依赖方向是否正确
+3. 确认层级职责是否清晰
