@@ -29,12 +29,12 @@ CLI → Task → Unit 是一种典型的小型应用调用结构。它不是固�
 **Task 编排**（Use-case orchestration）：
 > 用户要求系统完成什么任务？
 
-例如：`PackTask` 代表"用户要求 pack repository"
+例如：`TaskA` 代表"用户要求执行某个用例"
 
 **Unit 内部编排**（Capability orchestration）：
 > 这个能力内部如何实现？
 
-例如：`Pack Unit` 内部协调 Scan → Format → Segment → Write
+例如：`UnitX` 内部协调 Step1 → Step2 → Step3 → Step4
 
 ## 目录结构示例
 
@@ -44,7 +44,7 @@ internal/
 ├── cli/
 ├── tasks/
 └── units/
-    └── pack.go        # 单文件 Unit
+    └── unit-a.go      # 单文件 Unit
 ```
 
 **中型 CLI**：
@@ -53,10 +53,10 @@ internal/
 ├── cli/
 ├── tasks/
 └── units/
-    └── pack/          # 目录 Unit
-        ├── pack.go    # 入口
-        ├── scan.go
-        └── format.go
+    └── unit-x/        # 目录 Unit
+        ├── unit-x.go  # 入口
+        ├── step-1.go
+        └── step-2.go
 ```
 
 **复杂系统**：
@@ -64,12 +64,12 @@ internal/
 internal/
 ├── cli/
 ├── tasks/
-├── pack/              # Unit 可直接在 internal 下
-│   ├── pack.go
-│   └── scanner.go
-└── review/
-    ├── review.go
-    └── analyzer.go
+├── unit-x/            # Unit 可直接在 internal 下
+│   ├── unit-x.go
+│   └── helper-a.go
+└── unit-y/
+    ├── unit-y.go
+    └── helper-b.go
 ```
 
 ## 演进规则
