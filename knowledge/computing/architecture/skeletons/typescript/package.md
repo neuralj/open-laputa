@@ -161,6 +161,8 @@ bun test
 - 事件驱动服务 → Endpoint → Handler → Adapter
 - 混合 daemon → Scheduler + Endpoint → Handler → Adapter
 
+如果需要前端界面，参考 `svelte-fullstack.md` 选择全栈模式。
+
 ## 适用边界
 
 - ✅ CLI 工具、自动化脚本、轻量后台服务

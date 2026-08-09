@@ -14,6 +14,8 @@ architecture/
 │   ├── golang/
 │   ├── python/
 │   └── typescript/
+│       ├── package.md          # 纯后端
+│       └── svelte-fullstack.md # 全栈（Bun + Svelte）
 └── examples/      # 示例代码
 ```
 
