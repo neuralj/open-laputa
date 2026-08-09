@@ -136,6 +136,107 @@ Function → Unit 是**包含/实现关系**，不是调用关系。
 - 有独立测试价值
 - 有明显变化原因
 
+### 演进触发条件
+
+当满足以下任一条件时，应从阶段 1 演进到阶段 2：
+
+| 指标 | 阈值 | 说明 |
+|------|------|------|
+| `units/` 下文件数量 | > 4 个 | 平铺结构难以维护 |
+| 单个 Task 调用的 units 文件 | > 3 个 | 说明存在隐式的能力边界 |
+| 某个能力的函数数量 | > 3 个 | 说明该能力已形成独立边界 |
+| 文件间存在明显的调用链 | scan → format → segment | 说明存在流程编排需求 |
+
+**示例**：llm-review 当前状态
+- `units/` 下有 3 个文件：scan.go, format.go, pack.go
+- `pack_task.go` 调用 `units.Pack()`，而 `Pack()` 内部调用 Scan、Format
+- 存在隐式调用链：scan → format → segment → write
+
+→ 应演进到 `units/pack/` 结构
+
+### 演进操作步骤
+
+**从阶段 1 到阶段 2 的具体步骤**：
+
+1. **识别能力边界**
+   - 分析 Task 调用了哪些 units 文件
+   - 找出文件间的调用关系
+   - 确定哪些文件属于同一能力
+
+2. **创建子目录**
+   ```bash
+   mkdir -p internal/units/pack
+   ```
+
+3. **移动文件**
+   ```bash
+   mv internal/units/scan.go internal/units/pack/
+   mv internal/units/format.go internal/units/pack/
+   mv internal/units/pack.go internal/units/pack/
+   ```
+
+4. **调整包名和导入**
+   - 所有文件改为 `package pack`
+   - Task 层导入改为 `internal/units/pack`
+
+5. **暴露入口函数**
+   - 在 `units/pack/` 中创建 `unit.go` 或直接使用 `pack.go` 作为入口
+   - 入口函数协调内部 Scan、Format、Segment、Write
+
+### Task 层的演进
+
+| 阶段 | Task 层职责 | 调用方式 |
+|------|-------------|----------|
+| 阶段 1 | 简单调用 | `units.Pack(opts)` |
+| 阶段 2 | 编排 Unit | `pack.Pack(opts)` → 内部协调 |
+| 阶段 3 | 编排多个 Unit | `scanner.Scan()` + `formatter.Format()` |
+
+**关键原则**：Task 层不关心 Unit 内部实现，只关心输入输出契约。
+
+### 演进后的代码示例
+
+**Task 层（pack_task.go）**：
+```go
+func PackTask(rootPath, outputDir string, maxChars int) error {
+    // 调用 Pack Unit 的入口函数
+    result, err := pack.Pack(pack.Options{
+        RootPath:  rootPath,
+        OutputDir: outputDir,
+        MaxChars:  maxChars,
+    })
+    // ...
+}
+```
+
+**Pack Unit 入口（units/pack/pack.go）**：
+```go
+package pack
+
+func Pack(opts Options) (*Result, error) {
+    // 1. 扫描
+    files, err := Scan(opts.RootPath)
+    
+    // 2. 格式化
+    formatted := Format(files)
+    
+    // 3. 分段
+    segments := Segment(formatted, opts.MaxChars)
+    
+    // 4. 写入
+    return Write(segments, opts.OutputDir)
+}
+```
+
+**Pack Unit 内部（units/pack/scan.go, format.go, ...）**：
+```go
+package pack
+
+func Scan(rootPath string) ([]FileInfo, error) { ... }
+func Format(files []FileInfo) []FormattedFile { ... }
+func Segment(files []FormattedFile, maxChars int) []Segment { ... }
+func Write(segments []Segment, outputDir string) (*Result, error) { ... }
+```
+
 ### 目录演进示例
 
 **阶段 1：小型项目**
